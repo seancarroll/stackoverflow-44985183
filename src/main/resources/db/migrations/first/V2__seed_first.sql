@@ -1,0 +1,1 @@
+INSERT INTO first (name) VALUES ('sean');

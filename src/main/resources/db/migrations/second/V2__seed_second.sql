@@ -1,0 +1,1 @@
+INSERT INTO second (name) VALUES ('bob');

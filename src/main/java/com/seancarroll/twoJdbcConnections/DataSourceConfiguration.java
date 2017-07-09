@@ -14,65 +14,65 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 public class DataSourceConfiguration {
-    
-    @Bean(name = "FirstDataSourceTransactionManager")
+
+    @Bean
     public PlatformTransactionManager firstDataSourceTransactionManager() {
         return new DataSourceTransactionManager(firstDataSource());
     }
-    
-    @Bean(name = "FirstDataSource", destroyMethod = "shutdown")
+
+    @Bean(destroyMethod = "shutdown")
     @Primary
     public DataSource firstDataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
                 .generateUniqueName(true)
-                .build();               
+                .build();
     }
-    
-    @Bean(name = "firstJdbcTemplate")
+
+    @Bean
     public JdbcTemplate firstJdbcTemplate() {
         return new JdbcTemplate(firstDataSource());
     }
-    
-    @Bean(name = "FirstFlyway")
+
+    @Bean
     Flyway firstFlyway() {
         Flyway flyway = new Flyway();
         flyway.setBaselineOnMigrate(true);
         flyway.setLocations("classpath:/db/migrations/first/");
         flyway.setDataSource(firstDataSource());
-        
+
         flyway.migrate();
-        
+
         return flyway;
     }
-    
-    @Bean(name = "SecondDataSourceTransactionManager")
+
+    @Bean
     public PlatformTransactionManager secondDataSourceTransactionManager() {
         return new DataSourceTransactionManager(secondDataSource());
     }
-    
-    @Bean(name = "SecondDataSource", destroyMethod = "shutdown")
+
+    @Bean(destroyMethod = "shutdown")
     public DataSource secondDataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
                 .generateUniqueName(true)
-                .build();               
+                .build();
     }
-    
-    @Bean(name = "secondJdbcTemplate")
+
+    @Bean
     public JdbcTemplate secondJdbcTemplate() {
         return new JdbcTemplate(secondDataSource());
     }
-    
-    @Bean(name = "SecondFlyway")
-    Flyway SecondFlyway() {
+
+    @Bean
+    Flyway secondFlyway() {
         Flyway flyway = new Flyway();
         flyway.setBaselineOnMigrate(true);
         flyway.setLocations("classpath:/db/migrations/second/");
         flyway.setDataSource(secondDataSource());
-        
+
         flyway.migrate();
-        
+
         return flyway;
     }
 }

@@ -41,7 +41,7 @@ public class TwoJdbcConnectionsApplicationTests {
 	}
 	
 	@Test
-	@Transactional(transactionManager = "FirstDataSourceTransactionManager")
+	@Transactional(transactionManager = "firstDataSourceTransactionManager")
 	@Rollback
 	public void canUpdateFirst() {
 	    int firstUpdates = firstJdbcTemplate.update("UPDATE first set name = 'shawn' WHERE name = 'sean'");	    
@@ -49,7 +49,7 @@ public class TwoJdbcConnectionsApplicationTests {
 	}
 	
 	@Test
-    @Transactional(transactionManager = "SecondDataSourceTransactionManager")
+    @Transactional(transactionManager = "secondDataSourceTransactionManager")
     @Rollback
     public void canUpdateSecond() {
         int secondUpdates = secondJdbcTemplate.update("UPDATE second set name = 'robert' WHERE name = 'bob'");
